@@ -1,28 +1,42 @@
 import {
   Context,
   Get,
+  hashPassword,
   HttpResponseBadRequest,
+  HttpResponseNoContent,
   HttpResponseOK,
   HttpResponseUnauthorized,
   Post,
+  Session,
   ValidateBody,
 } from "@foal/core";
+import { removeAuthCookie, setAuthCookie } from "@foal/jwt";
 import { User } from "../../entities";
 import { credentialsSchema } from "./schemas";
+import { signToken } from "./tokenizer";
 
 export class AuthController {
   @Post("/login")
   @ValidateBody(credentialsSchema)
-  async login(ctx: Context) {
+  async login(ctx: Context<User | undefined, Session>) {
     const username = ctx.request.body.username;
 
     const result = await User.findOne({ username: username });
     if (result) {
       const phone = result.phone;
-      ctx.session!.setUser(result);
-      ctx.user = result;
 
-      return new HttpResponseOK(result);
+      const token = signToken({
+        id: result.id,
+        sub: result.id.toString(),
+        username: result.username,
+      });
+
+      const response = new HttpResponseOK({
+        token: token,
+      });
+      // Do not forget the "await" keyword.
+      await setAuthCookie(response, token);
+      return response;
     } else {
       return new HttpResponseUnauthorized();
     }
@@ -62,5 +76,11 @@ export class AuthController {
         isAvailable: false,
       });
     }
+  }
+  @Post("/logout")
+  async logout(ctx: Context<User | undefined, Session>) {
+    const response = new HttpResponseNoContent();
+    removeAuthCookie(response);
+    return response;
   }
 }

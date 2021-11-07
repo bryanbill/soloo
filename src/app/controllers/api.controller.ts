@@ -23,10 +23,6 @@ import { WalletController } from "./wallet";
 @ApiServer({
   url: `/${Config.get("version", "string", "/v1")}`,
 })
-@UseSessions({
-  cookie: true,
-  user: fetchUser(User),
-})
 export class ApiController {
   subControllers = [
     controller("/users", UsersController),
