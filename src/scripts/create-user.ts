@@ -1,7 +1,6 @@
 // 3p
 // import { hashPassword } from '@foal/core';
 import { createConnection } from "typeorm";
-
 // App
 import { User } from "../app/entities";
 
@@ -34,7 +33,7 @@ export async function main(args: {
 
     console.log(await user.save());
   } catch (error) {
-    error = error as Exception;
+    error = error;
     console.log(error.message);
   } finally {
     await connection.close();

@@ -14,7 +14,9 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    default: "",
+  })
   avatar: string;
 
   @Column({

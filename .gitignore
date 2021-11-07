@@ -11,3 +11,4 @@ build/
 *.sqlite3-wal
 .vscode/
 .idea/
+migrations/
