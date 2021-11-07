@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity({ name: "users" })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,7 +15,7 @@ export class User extends BaseEntity {
   name: string;
 
   @Column({
-    default: "",
+    default: "images/profiles/default.png",
   })
   avatar: string;
 
@@ -23,6 +23,11 @@ export class User extends BaseEntity {
     unique: true,
   })
   username: string;
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }
 
 // This line is required. It will be used to create the SQL session table later in the tutorial.

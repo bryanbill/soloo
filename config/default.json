@@ -4,6 +4,11 @@
     "loggerFormat": "tiny",
     "session": {
       "store": "@foal/typeorm"
+    },
+    "disk": {
+      "local": {
+        "directory": "assets"
+      }
     }
   },
   "database": {

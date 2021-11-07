@@ -25,8 +25,11 @@
   },
   "dependencies": {
     "@foal/core": "^2.0.0",
+    "@foal/storage": "^2.6.0",
     "@foal/swagger": "^2.6.0",
     "@foal/typeorm": "^2.0.0",
+    "@notifire/core": "^0.2.5",
+    "@notifire/sendgrid": "^0.2.5",
     "better-sqlite3": "~7.1.2",
     "exception": "^1.0.9",
     "mysql": "^2.18.1",
