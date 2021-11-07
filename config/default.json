@@ -10,7 +10,15 @@
     },
     "jwt": {
       "secret": "Ak0WcVcGuOoFuZ4oqF1tgqbW6dIAeSacIN6h7qEyJM8=",
-      "secretEncoding": "base64"
+      "secretEncoding": "base64",
+      "cookie": {
+        "name": "auth",
+        "domain": "localhost",
+        "httpOnly": true,
+        "path": "/",
+        "sameSite": "strict",
+        "secure": true
+      }
     },
     "disk": {
       "local": {
