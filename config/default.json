@@ -8,6 +8,10 @@
         "enabled": true
       }
     },
+    "jwt": {
+      "secret": "Ak0WcVcGuOoFuZ4oqF1tgqbW6dIAeSacIN6h7qEyJM8=",
+      "secretEncoding": "base64"
+    },
     "disk": {
       "local": {
         "directory": "assets"
