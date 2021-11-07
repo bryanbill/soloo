@@ -3,7 +3,10 @@
   "settings": {
     "loggerFormat": "tiny",
     "session": {
-      "store": "@foal/typeorm"
+      "store": "@foal/typeorm",
+      "csrf": {
+        "enabled": true
+      }
     },
     "disk": {
       "local": {
