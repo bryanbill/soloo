@@ -10,6 +10,10 @@ export class AppController implements IAppController {
     controller("/swagger", OpenapiController),
   ];
 
+  async destroy() {
+    process.exit(0);
+  }
+
   async init() {
     await createConnection();
   }

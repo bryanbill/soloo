@@ -42,6 +42,21 @@ export class AuthController {
     }
   }
   @Post("/register")
+  @ValidateBody({
+    additionalProperties: false,
+    properties: {
+      name: { type: "string" },
+      email: { type: "string", format: "email" },
+      phone: {
+        type: "string",
+      },
+      username: {
+        type: "string",
+      },
+    },
+    required: ["phone", "username", "email", "name"],
+    type: "object",
+  })
   async register(ctx: Context) {
     const user = new User();
     const { name, phone, email, username } = ctx.request.body;
@@ -52,7 +67,10 @@ export class AuthController {
     user.username = username;
     user.createdAt = new Date(Date.now());
     user.updatedAt = new Date(Date.now());
-    const result = await user.save();
+    const result = await user.save().catch((err) => {
+      console.log(err);
+      return undefined;
+    });
     if (result) {
       return new HttpResponseOK({
         created: true,

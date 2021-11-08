@@ -22,9 +22,7 @@ export class Wallet extends BaseEntity {
 
   @Column({
     unique: true,
-    default: v4(),
   })
-  
   address: string;
 }
 
