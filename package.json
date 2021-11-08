@@ -31,12 +31,14 @@
     "@foal/typeorm": "^2.0.0",
     "@notifire/core": "^0.2.5",
     "@notifire/sendgrid": "^0.2.5",
+    "@types/uuid": "^8.3.1",
     "better-sqlite3": "~7.1.2",
     "exception": "^1.0.9",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "source-map-support": "~0.5.19",
-    "typeorm": "0.2.26"
+    "typeorm": "0.2.26",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/mocha": "7.0.2",
