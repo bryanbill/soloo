@@ -36,4 +36,23 @@ export class WalletController {
 
     return new HttpResponseBadRequest();
   }
+  @Post("/transfer")
+  async transfer(ctx: Context) {
+    const { to } = ctx.request.body;
+    const wallet = await Wallet.findOne({ username: to });
+    const myWallet = await Wallet.findOne({ username: ctx.user.username });
+    if (!wallet || !myWallet) {
+      return new HttpResponseNotFound();
+    }
+    const wUtil = new WalletUtil();
+    const result = await wUtil.transfer(
+      myWallet.address,
+      wallet.address,
+      ctx.request.body.amount
+    );
+
+    return new HttpResponseOK({
+      isSuccess: result,
+    });
+  }
 }
