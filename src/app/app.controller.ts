@@ -9,11 +9,6 @@ export class AppController implements IAppController {
     controller(`/${Config.get("version", "string", "v1")}`, ApiController),
     controller("/swagger", OpenapiController),
   ];
-
-  async destroy() {
-    process.exit(0);
-  }
-
   async init() {
     await createConnection();
   }
