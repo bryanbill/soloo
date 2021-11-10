@@ -2,7 +2,7 @@ import { Readable } from "stream";
 
 import { dependency } from "@foal/core";
 import { Disk } from "@foal/storage";
-
+import { FileTypes } from "../../../utils/types";
 class FileService {
   @dependency
   disk: Disk;
@@ -20,9 +20,8 @@ class FileService {
    * @param content
    * @returns
    */
-  async createFile(content: Buffer | Readable) {
-    const { path } = await this.disk.write("avatars", content);
-    // path === 'avatars/zMurtEGl1BTNJnJjeOfwx4GPWirZpoGRG9J8NbRRkRY=.jpg'
+  async createFile(content: Buffer | Readable, type: FileTypes) {
+    const { path } = await this.disk.write(type.path, content);
     return path;
   }
 
