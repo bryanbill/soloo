@@ -2,8 +2,8 @@ import { Readable } from "stream";
 
 import { dependency } from "@foal/core";
 import { Disk } from "@foal/storage";
-import { FileTypes } from "../../../utils/types";
-class FileService {
+import { fileType, FileType } from "../../../utils/types";
+export class FileService {
   @dependency
   disk: Disk;
   /**
@@ -20,8 +20,8 @@ class FileService {
    * @param content
    * @returns
    */
-  async createFile(content: Buffer | Readable, type: FileTypes) {
-    const { path } = await this.disk.write(type.path, content);
+  async createFile(content: Buffer | Readable, type: string) {
+    const { path } = await this.disk.write(type, content);
     return path;
   }
 
@@ -37,5 +37,10 @@ class FileService {
       .catch(() => false);
 
     return await stat;
+  }
+
+  test() {
+    this.createFile(Buffer.from("test"), fileType("Audio") );
+    return "test";
   }
 }
