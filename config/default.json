@@ -8,6 +8,12 @@
         "enabled": true
       }
     },
+    "disk": {
+      "driver": "local",
+      "local": {
+        "directory": "uploaded"
+      }
+    },
     "jwt": {
       "secret": "+62abiS1hpdvHdNjgzS6SG+i8alqyjtZUQj97FxS6CI=",
       "secretEncoding": "base64",
