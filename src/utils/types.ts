@@ -1,26 +1,26 @@
 import { type } from "os";
 
 export type FileType = (
-  type: "Video" | "Audio" | "Image" | "Document" | "Unknown"
+  type: "Video" | "Audio" | "Image" | "Document" | "Others"
 ) => string;
 
 export const fileType: FileType = (type) => {
   let path: string;
   switch (type) {
     case "Video":
-      path = "video";
+      path = "videos";
       break;
     case "Audio":
-      path = "audio";
+      path = "audios";
       break;
     case "Image":
-      path = "image";
+      path = "images";
       break;
     case "Document":
-      path = "document";
+      path = "documents";
       break;
     default:
-      path = "unknown";
+      path = "others";
       break;
   }
   return path;

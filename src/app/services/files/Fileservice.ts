@@ -40,7 +40,11 @@ export class FileService {
   }
 
   test() {
-    this.createFile(Buffer.from("test"), fileType("Audio") );
-    return "test";
+    const path = this.createFile(Buffer.from("test"), fileType("Others")).then(
+      async (path) => {
+        return await this.readFile(path);
+      }
+    );
+    return path;
   }
 }
