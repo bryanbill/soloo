@@ -1,9 +1,12 @@
 import {
   Context,
+  Delete,
   Get,
   HttpResponseBadRequest,
+  HttpResponseInternalServerError,
   HttpResponseOK,
   Post,
+  ValidatePathParam,
 } from "@foal/core";
 import { JWTRequired } from "@foal/jwt";
 import { ValidateMultipartFormDataBody } from "@foal/storage";
@@ -50,7 +53,27 @@ export class StorageController {
       }
       return new HttpResponseBadRequest();
     } catch (error) {
-      return new HttpResponseBadRequest(error);
+      return new HttpResponseInternalServerError(error);
     }
+  }
+  @Delete("/")
+  @ValidatePathParam("fileId", { type: "number" })
+  async deleteFile(ctx: Context) {
+    const fileServce = new FileService();
+    const fileId = ctx.request.params.fileId;
+    const file = await Storage.findOne(fileId);
+
+    const result = await fileServce.deleteFile(file!.path).then(async (d) => {
+      return await Storage.update(fileId, { isDeleted: d });
+    });
+
+    if (result.affected) {
+      return new HttpResponseOK({
+        message: "File deleted successfully",
+      });
+    }
+    return new HttpResponseBadRequest({
+      message: "File not found",
+    });
   }
 }

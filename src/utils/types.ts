@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type FileType = (
   type: "Video" | "Audio" | "Image" | "Document" | "Others"
 ) => string;
@@ -33,10 +31,35 @@ export const extractFileType = (fileName: string) => {
       return "Video";
     case "mp3" || "wav" || "ogg" || "flac":
       return "Audio";
-    case "jpg" || "jpeg" || "png":
+    case "jpg" || "jpeg" || "png" || "gif" || "bmp":
       return "Image";
-    case "pdf" || "docx" || "doc":
+    case "pdf" ||
+      "docx" ||
+      "doc" ||
+      "ppt" ||
+      "pptx" ||
+      "xls" ||
+      "xlsx" ||
+      "txt" ||
+      "csv" ||
+      "rtf" ||
+      "odt" ||
+      "ods" ||
+      "odp" ||
+      "odg" ||
+      "odf" ||
+      "odb" ||
+      "odm" ||
+      "ott" ||
+      "ots" ||
+      "ots" ||
+      "otp" ||
+      "otg" ||
+      "odc" ||
+      "odf" ||
+      "odft":
       return "Document";
+
     default:
       return "Others";
   }
