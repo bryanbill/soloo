@@ -25,3 +25,19 @@ export const fileType: FileType = (type) => {
   }
   return path;
 };
+export const extractFileType = (fileName: string) => {
+  const fileType = fileName.split(".");
+  const fileExtension = fileType[fileType.length - 1];
+  switch (fileExtension) {
+    case "mp4" || "webm" || "ogg" || "avi":
+      return "Video";
+    case "mp3" || "wav" || "ogg" || "flac":
+      return "Audio";
+    case "jpg" || "jpeg" || "png":
+      return "Image";
+    case "pdf" || "docx" || "doc":
+      return "Document";
+    default:
+      return "Others";
+  }
+};
