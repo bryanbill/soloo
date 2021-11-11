@@ -1,27 +1,25 @@
-import { BaseEntity, Column, PrimaryColumn } from "typeorm";
-import { v4 } from "uuid";
+import {
+  BaseEntity,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 export class Transaction extends BaseEntity {
-  @PrimaryColumn({
-    default: v4(),
-  })
+  @PrimaryGeneratedColumn()
   id: string;
 
-  @Column({
-      
-  })
+  @Column()
   destinationAddress: string;
-  @Column({})
+  @Column()
   sourceAddress: string;
-  @Column({})
+  @Column()
   coins: number;
-  @Column({})
+  @Column()
   transactionFee: number;
-  @Column({})
+  @Column()
   status: string;
-  @Column({})
+  @Column()
   createdAt: Date;
-  @Column({})
+  @Column()
   updatedAt: Date;
 }
-// This line is required. It will be used to create the SQL session table later in the tutorial.
-export { DatabaseSession } from "@foal/typeorm";
