@@ -1,4 +1,5 @@
 import {
+  ApiUseTag,
   Context,
   Delete,
   Get,
@@ -11,11 +12,11 @@ import {
 import { JWTRequired } from "@foal/jwt";
 import { ValidateMultipartFormDataBody } from "@foal/storage";
 import { fetchUser } from "@foal/typeorm";
-import { table } from "console";
 import { extractFileType, fileType } from "../../../utils/types";
 import { Storage, User } from "../../entities";
 import { FileService } from "../../services";
 
+@ApiUseTag("Storage")
 @JWTRequired({ cookie: true, user: fetchUser(User) })
 export class StorageController {
   @Get("/")

@@ -8,8 +8,8 @@ import {
   Get,
   HttpResponseForbidden,
   HttpResponseOK,
-  UseSessions,
 } from "@foal/core";
+import { JWTRequired } from "@foal/jwt";
 import { fetchUser } from "@foal/typeorm";
 import { User } from "../entities";
 import { AppcenterController } from "./appcenter";
@@ -40,8 +40,18 @@ export class ApiController {
     controller("/storage", StorageController),
   ];
 
+  @JWTRequired({ cookie: true, user: fetchUser(User) })
   @Get("/")
   index(ctx: Context) {
+    if (ctx.user.role === "admin") {
+      return new HttpResponseOK({
+        server: {
+          name: "Soloo API",
+          version: "0.0.1",
+        },
+      });
+    }
+
     return new HttpResponseForbidden("NO!");
   }
 }

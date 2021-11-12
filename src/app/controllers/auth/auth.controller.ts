@@ -1,4 +1,5 @@
 import {
+  ApiUseTag,
   Context,
   Get,
   hashPassword,
@@ -15,6 +16,7 @@ import { User } from "../../entities";
 import { credentialsSchema } from "./schemas";
 import { signToken } from "./tokenizer";
 
+@ApiUseTag("auth")
 export class AuthController {
   @Post("/login")
   @ValidateBody(credentialsSchema)

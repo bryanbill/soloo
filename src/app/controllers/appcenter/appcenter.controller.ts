@@ -1,4 +1,5 @@
 import {
+  ApiUseTag,
   Context,
   Get,
   HttpResponseBadRequest,
@@ -12,6 +13,7 @@ import { fetchUser } from "@foal/typeorm";
 import { User, Appcenter } from "../../entities";
 import { FileService } from "../../services";
 
+@ApiUseTag("Appcenter")
 @JWTRequired({ cookie: true, user: fetchUser(User) })
 export class AppcenterController {
   @Get("/")
@@ -28,7 +30,6 @@ export class AppcenterController {
         required: true,
       },
     },
-    
   })
   async createApp(ctx: Context) {
     if (ctx.user.role !== "developer") {
