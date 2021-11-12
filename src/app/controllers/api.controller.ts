@@ -40,6 +40,7 @@ export class ApiController {
     controller("/storage", StorageController),
   ];
 
+  @ApiUseTag("Server")
   @JWTRequired({ cookie: true, user: fetchUser(User) })
   @Get("/")
   index(ctx: Context) {

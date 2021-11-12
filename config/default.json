@@ -11,7 +11,7 @@
     "disk": {
       "driver": "local",
       "local": {
-        "directory": "assets"
+        "directory": "uploads"
       }
     },
     "jwt": {

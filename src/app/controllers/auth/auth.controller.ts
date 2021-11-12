@@ -10,13 +10,14 @@ import {
   Post,
   Session,
   ValidateBody,
+  ValidatePathParam,
 } from "@foal/core";
 import { removeAuthCookie, setAuthCookie } from "@foal/jwt";
 import { User } from "../../entities";
 import { credentialsSchema } from "./schemas";
 import { signToken } from "./tokenizer";
 
-@ApiUseTag("auth")
+@ApiUseTag("Auth")
 export class AuthController {
   @Post("/login")
   @ValidateBody(credentialsSchema)
@@ -83,16 +84,17 @@ export class AuthController {
       });
     }
   }
-  @Post("/check-username")
+  @Get("/check-username/:username")
+  @ValidatePathParam("username", { type: "string" })
   async checkUsername(ctx: Context) {
-    const username = ctx.request.body.username;
+    const username = ctx.request.params.username;
     const result = await User.findOne({ username: username });
-    if (result) {
+    if (!result) {
       return new HttpResponseOK({
         isAvailable: true,
       });
     } else {
-      return new HttpResponseBadRequest({
+      return new HttpResponseOK({
         isAvailable: false,
       });
     }
