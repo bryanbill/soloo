@@ -21,7 +21,9 @@ import { FileService } from "../../services";
 export class StorageController {
   @Get("/")
   async getFiles(ctx: Context) {
-    const result = await Storage.find();
+    const result = await Storage.find({
+      username: ctx.user.username,
+    });
     return new HttpResponseOK(result);
   }
 
@@ -70,12 +72,15 @@ export class StorageController {
       return new HttpResponseInternalServerError(error);
     }
   }
-  @Delete("/")
+  @Delete("/:fileId")
   @ValidatePathParam("fileId", { type: "number" })
   async deleteFile(ctx: Context) {
     const fileServce = new FileService();
     const fileId = ctx.request.params.fileId;
-    const file = await Storage.findOne(fileId);
+    const file = await Storage.findOne({
+      id: fileId,
+      username: ctx.user.username,
+    });
 
     const result = await fileServce.deleteFile(file!.path).then(async (d) => {
       return await Storage.update(fileId, { isDeleted: d });
@@ -95,7 +100,10 @@ export class StorageController {
   @ValidatePathParam("fileId", { type: "number" })
   async downloadFile(ctx: Context) {
     const fileId = ctx.request.params.fileId;
-    const file = await Storage.findOne(fileId);
+    const file = await Storage.findOne({
+      id: fileId,
+      username: ctx.user.username,
+    });
     if (file) {
       const fileServce = new FileService();
       const response = await fileServce.downloadFile(file.path, file.name);

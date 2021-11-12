@@ -9,7 +9,7 @@ import {
   HttpResponseForbidden,
   HttpResponseOK,
 } from "@foal/core";
-import { JWTRequired } from "@foal/jwt";
+import { JWTOptional, JWTRequired } from "@foal/jwt";
 import { fetchUser } from "@foal/typeorm";
 import { User } from "../entities";
 import { AppcenterController } from "./appcenter";
@@ -41,7 +41,7 @@ export class ApiController {
   ];
 
   @ApiUseTag("Server")
-  @JWTRequired({ cookie: true, user: fetchUser(User) })
+  @JWTOptional({ cookie: true, user: fetchUser(User) })
   @Get("/")
   index(ctx: Context) {
     if (ctx.user.role === "admin") {
