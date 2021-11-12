@@ -23,44 +23,16 @@ export const fileType: FileType = (type) => {
   }
   return path;
 };
-export const extractFileType = (fileName: string) => {
-  const fileType = fileName.split(".");
-  const fileExtension = fileType[fileType.length - 1];
-  switch (fileExtension) {
-    case "mp4" || "webm" || "ogg" || "avi":
-      return "Video";
-    case "mp3" || "wav" || "ogg" || "flac":
-      return "Audio";
-    case "jpg" || "jpeg" || "png" || "gif" || "bmp":
-      return "Image";
-    case "pdf" ||
-      "docx" ||
-      "doc" ||
-      "ppt" ||
-      "pptx" ||
-      "xls" ||
-      "xlsx" ||
-      "txt" ||
-      "csv" ||
-      "rtf" ||
-      "odt" ||
-      "ods" ||
-      "odp" ||
-      "odg" ||
-      "odf" ||
-      "odb" ||
-      "odm" ||
-      "ott" ||
-      "ots" ||
-      "ots" ||
-      "otp" ||
-      "otg" ||
-      "odc" ||
-      "odf" ||
-      "odft":
-      return "Document";
-
-    default:
-      return "Others";
+export const extractFileType = (mimeType: string) => {
+  if (mimeType.includes("video")) {
+    return "videos";
+  } else if (mimeType.includes("audio")) {
+    return "audios";
+  } else if (mimeType.includes("image")) {
+    return "images";
+  } else if (mimeType.includes("document")) {
+    return "documents";
+  } else {
+    return "others";
   }
 };
