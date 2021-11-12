@@ -4,3 +4,4 @@ export { Transaction } from "./transaction.entity";export { Storage } from './st
 export { Appcenter } from './appcenter.entity';
 export { Arena } from './arena.entity';
 export { ArenaMembers } from './arena-members.entity';
+export { ArenaMessages } from './arena-messages.entity';
