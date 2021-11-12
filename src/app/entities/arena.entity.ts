@@ -17,7 +17,6 @@ export class Arena extends BaseEntity {
 
   @Column({
     unique: true,
-    
   })
   channel: string;
 
@@ -33,4 +32,13 @@ export class Arena extends BaseEntity {
   @Column()
   isActive: boolean;
 
+  @Column()
+  members: number;
+
+  @Column()
+  reports: string[];
+
+  ration() {
+    return (this.reports.length / this.members) * 100;
+  }
 }

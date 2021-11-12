@@ -14,10 +14,25 @@ export class ArenaMembers extends BaseEntity {
 
   @Column()
   joinedAt: Date;
+  @Column()
 
   @Column()
   leftAt: Date;
 
   @Column()
   roles: string[];
+
+  @Column()
+  status: string;
+
+  @Column()
+  isBanned: boolean;
+
+  @Column()
+  isMuted: boolean;
+
+  @Column()
+  warnings: number;
+
+
 }
