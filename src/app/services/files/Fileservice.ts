@@ -1,11 +1,16 @@
 import { Readable } from "stream";
 
 import { dependency } from "@foal/core";
-import { Disk } from "@foal/storage";
-import { fileType, FileType } from "../../../utils/types";
+import { LocalDisk } from "@foal/storage";
+import { fileType } from "../../../utils/types";
 export class FileService {
   @dependency
-  disk: Disk;
+  disk: LocalDisk;
+
+  constructor() {
+    this.disk = new LocalDisk();
+  }
+
   /**
    * Reads the file at the given path.
    * @param path
@@ -15,15 +20,23 @@ export class FileService {
     const file = this.disk.read(path, "buffer");
     return file;
   }
+
+  downloadFile(path: string, name: string) {
+    return this.disk.createHttpResponse(path, {
+      forceDownload: true,
+      filename: name,
+    });
+  }
+
   /**
    * Creates a new file from the given content
    * @param content
    * @returns
    */
-  async createFile(content: Buffer | Readable, type: string) {
+  public createFile = async (content: Buffer | Readable, type: string) => {
     const { path } = await this.disk.write(type, content);
     return path;
-  }
+  };
 
   /**
    * Delete the file at the given path.
@@ -39,12 +52,12 @@ export class FileService {
     return await stat;
   }
 
-  test() {
+  public test = () => {
     const path = this.createFile(Buffer.from("test"), fileType("Others")).then(
       async (path) => {
         return await this.readFile(path);
       }
     );
     return path;
-  }
+  };
 }

@@ -1,4 +1,5 @@
 import {
+  ApiUseTag,
   Context,
   Get,
   HttpResponseForbidden,
@@ -10,6 +11,7 @@ import { JWTRequired } from "@foal/jwt";
 import { fetchUser } from "@foal/typeorm";
 import { User } from "../../entities";
 
+@ApiUseTag("Users")
 @JWTRequired({ cookie: true, user: fetchUser(User) })
 export class UsersController {
   @Get("/")

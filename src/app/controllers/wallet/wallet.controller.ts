@@ -1,4 +1,5 @@
 import {
+  ApiUseTag,
   Context,
   Get,
   HttpResponse,
@@ -15,6 +16,7 @@ import { v4 } from "uuid";
 import { User, Wallet } from "../../entities";
 import { WalletUtil } from "./wallet";
 
+@ApiUseTag("Wallet")
 @JWTRequired({ cookie: true, user: fetchUser(User) })
 export class WalletController {
   @Get("/")

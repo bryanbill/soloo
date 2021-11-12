@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type FileType = (
   type: "Video" | "Audio" | "Image" | "Document" | "Others"
 ) => string;
@@ -24,4 +22,17 @@ export const fileType: FileType = (type) => {
       break;
   }
   return path;
+};
+export const extractFileType = (mimeType: string) => {
+  if (mimeType.includes("video")) {
+    return "videos";
+  } else if (mimeType.includes("audio")) {
+    return "audios";
+  } else if (mimeType.includes("image")) {
+    return "images";
+  } else if (mimeType.includes("document")) {
+    return "documents";
+  } else {
+    return "others";
+  }
 };

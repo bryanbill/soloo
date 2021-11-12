@@ -25,6 +25,3 @@ export class Wallet extends BaseEntity {
   })
   address: string;
 }
-
-// This line is required. It will be used to create the SQL session table later in the tutorial.
-export { DatabaseSession } from "@foal/typeorm";
