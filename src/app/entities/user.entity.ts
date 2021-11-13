@@ -35,7 +35,7 @@ export class User extends BaseEntity {
   accountType: string;
 
   @Column({
-    default: "normal",
+    array: true,
   })
   role: string;
 

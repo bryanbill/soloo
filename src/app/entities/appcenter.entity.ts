@@ -30,7 +30,8 @@ export class Appcenter extends BaseEntity {
   @Column()
   updatedAt: Date;
 
-  //Allow this for PostgresSQL or MongoDB
-  // @Column()
-  // users: string[];
+  @Column({
+    array: true,
+  })
+  users: string;
 }

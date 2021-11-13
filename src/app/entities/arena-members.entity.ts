@@ -14,13 +14,15 @@ export class ArenaMembers extends BaseEntity {
 
   @Column()
   joinedAt: Date;
-  @Column()
-
+  
   @Column()
   leftAt: Date;
 
-  @Column()
-  roles: string[];
+  @Column({
+    array: true,
+   
+  })
+  roles: string;
 
   @Column()
   status: string;
@@ -33,6 +35,4 @@ export class ArenaMembers extends BaseEntity {
 
   @Column()
   warnings: number;
-
-
 }
