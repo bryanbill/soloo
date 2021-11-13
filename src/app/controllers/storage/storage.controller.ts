@@ -1,4 +1,5 @@
 import {
+
   ApiUseTag,
   Context,
   Delete,
@@ -12,6 +13,7 @@ import {
 import { JWTRequired } from "@foal/jwt";
 import { ValidateMultipartFormDataBody } from "@foal/storage";
 import { fetchUser } from "@foal/typeorm";
+
 import { extractFileType, fileType } from "../../../utils/types";
 import { Storage, User } from "../../entities";
 import { FileService } from "../../services";
@@ -21,6 +23,7 @@ import { FileService } from "../../services";
 export class StorageController {
   @Get("/")
   async getFiles(ctx: Context) {
+
     const result = await Storage.find({
       username: ctx.user.username,
     });
