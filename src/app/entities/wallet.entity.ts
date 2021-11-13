@@ -1,5 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { v4 } from "uuid";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Transaction } from "./transaction.entity";
+import { User } from "./user.entity";
+
 @Entity({ name: "wallet" })
 export class Wallet extends BaseEntity {
   @PrimaryGeneratedColumn()
