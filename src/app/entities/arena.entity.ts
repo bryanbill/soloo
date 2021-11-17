@@ -36,7 +36,7 @@ export class Arena extends BaseEntity {
   members: number;
 
   @Column({
-    array: true,
+ //   array: true,
    
   })
   reports: string;

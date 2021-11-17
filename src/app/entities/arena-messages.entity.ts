@@ -28,7 +28,7 @@ export class ArenaMessages extends BaseEntity {
   isPinned: boolean;
 
   @Column({
-    array: true,
+   // array: true,
    
   })
   flags: string;
