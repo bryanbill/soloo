@@ -25,14 +25,19 @@ export const fileType: FileType = (type) => {
 };
 export const extractFileType = (mimeType: string) => {
   if (mimeType.includes("video")) {
-    return "videos";
+    return "Video";
   } else if (mimeType.includes("audio")) {
-    return "audios";
+    return "Audio";
   } else if (mimeType.includes("image")) {
-    return "images";
-  } else if (mimeType.includes("document")) {
-    return "documents";
+    return "Image";
+  } else if (
+    mimeType.includes("msword") ||
+    mimeType.includes("vnd") ||
+    mimeType.includes("text") ||
+    mimeType.includes("pdf")
+  ) {
+    return "Document";
   } else {
-    return "others";
+    return "Other";
   }
 };
