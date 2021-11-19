@@ -43,13 +43,13 @@ export class FileService {
    * @param path
    * @returns
    */
-  async deleteFile(path: string) {
-    const stat = this.disk
+  async deleteFile(path: string): Promise<boolean> {
+    const stat = await this.disk
       .delete(path)
       .then(() => true)
       .catch(() => false);
 
-    return await stat;
+    return stat;
   }
 
   public test = () => {

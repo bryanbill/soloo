@@ -32,6 +32,7 @@
     "@notifire/core": "^0.2.5",
     "@notifire/sendgrid": "^0.2.5",
     "@types/uuid": "^8.3.1",
+    "@vonage/server-sdk": "^2.10.10",
     "better-sqlite3": "~7.1.2",
     "exception": "^1.0.9",
     "jsonwebtoken": "^8.5.1",
