@@ -68,6 +68,9 @@ export class AuthController {
     user.phone = phone;
     user.email = email;
     user.username = username;
+    user.role = "normal";
+    user.isDeleted = false;
+    
     user.createdAt = new Date(Date.now());
     user.updatedAt = new Date(Date.now());
     const result = await user.save().catch((err) => {

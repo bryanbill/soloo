@@ -2,7 +2,7 @@ import { Readable } from "stream";
 
 import { dependency } from "@foal/core";
 import { LocalDisk } from "@foal/storage";
-import { fileType } from "../../../utils/types";
+import { FileType, fileType } from "../../../utils/types";
 export class FileService {
   @dependency
   disk: LocalDisk;
@@ -34,7 +34,7 @@ export class FileService {
    * @returns
    */
   public createFile = async (content: Buffer | Readable, type: string) => {
-    const { path } = await this.disk.write(type, content);
+    const { path } = await this.disk.write(fileType(type), content);
     return path;
   };
 

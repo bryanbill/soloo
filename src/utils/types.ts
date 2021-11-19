@@ -2,10 +2,10 @@ export type FileType = (
   type: "Video" | "Audio" | "Image" | "Document" | "Others"
 ) => string;
 
-export const fileType: FileType = (type) => {
+export const fileType = (type: string) => {
   let path: string;
   switch (type) {
-    case "Video":
+    case "Video":                    
       path = "videos";
       break;
     case "Audio":
