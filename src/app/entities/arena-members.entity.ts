@@ -19,10 +19,11 @@ export class ArenaMembers extends BaseEntity {
   leftAt: Date;
 
   @Column({
-  //  array: true,
-   
+    type: "varchar",
+    array: true,
+    default: {},
   })
-  roles: string;
+  roles: string[];
 
   @Column()
   status: string;

@@ -14,6 +14,7 @@ import {
 } from "@foal/core";
 import { removeAuthCookie, setAuthCookie } from "@foal/jwt";
 import { User } from "../../entities";
+import { VerificationService } from "../../services";
 import { credentialsSchema } from "./schemas";
 import { signToken } from "./tokenizer";
 
@@ -28,18 +29,12 @@ export class AuthController {
     if (result) {
       const phone = result.phone;
 
-      const token = signToken({
-        id: result.id,
-        sub: result.id.toString(),
-        username: result.username,
-      });
+      const verificationService = new VerificationService();
 
-      const response = new HttpResponseOK({
-        token: token,
+      let requestID = await verificationService.sendVerificationCode(phone);
+      return new HttpResponseOK({
+        id: requestID,
       });
-      // Do not forget the "await" keyword.
-      await setAuthCookie(response, token);
-      return response;
     } else {
       return new HttpResponseUnauthorized();
     }
@@ -70,7 +65,7 @@ export class AuthController {
     user.username = username;
     user.role = "normal";
     user.isDeleted = false;
-    
+
     user.createdAt = new Date(Date.now());
     user.updatedAt = new Date(Date.now());
     const result = await user.save().catch((err) => {
@@ -107,5 +102,42 @@ export class AuthController {
     const response = new HttpResponseNoContent();
     removeAuthCookie(response);
     return response;
+  }
+
+  @Post("/verify-code")
+  @ValidateBody({
+    additionalProperties: false,
+    properties: {
+      code: { type: "string" },
+      requestID: { type: "string" },
+      username: { type: "string" },
+    },
+  })
+  async verifyCode(ctx: Context<User | undefined, Session>) {
+    const verificationService = new VerificationService();
+
+    verificationService
+      .verifyCode(ctx.request.body.requestID, ctx.request.body.code)
+      .then(async (d) => {
+        if (d) {
+          const result = await User.findOne({
+            username: ctx.request.body.username,
+          });
+          const token = signToken({
+            id: result!.id,
+            sub: result!.id.toString(),
+            username: result!.username,
+          });
+
+          const response = new HttpResponseOK({
+            token: token,
+          });
+          // Do not forget the "await" keyword.
+          await setAuthCookie(response, token);
+          return response;
+        } else {
+          return new HttpResponseUnauthorized();
+        }
+      });
   }
 }

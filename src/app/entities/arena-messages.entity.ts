@@ -34,8 +34,9 @@ export class ArenaMessages extends BaseEntity {
   flags: string;
 
   @Column({
-   // array: true,
-   
+    type: "varchar",
+    array: true,
+    default: {},
   })
-  media: string;
+  media: string[];
 }

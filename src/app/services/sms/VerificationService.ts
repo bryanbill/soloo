@@ -1,7 +1,9 @@
 import Vonage from "@vonage/server-sdk";
+import axios from "axios";
 export class VerificationService {
   private vonage: Vonage;
   constructor() {
+    console.log(process.env.VONAGE_API_KEY!);
     this.vonage = new Vonage({
       apiKey: process.env.VONAGE_API_KEY!,
       apiSecret: process.env.VONAGE_API_SECRET!,
@@ -9,24 +11,23 @@ export class VerificationService {
   }
 
   async sendVerificationCode(phoneNumber: string): Promise<string> {
-    let id;
-    const res = await this.vonage.verify.request(
-      {
-        number: phoneNumber,
-        brand: "Soloo",
+    const res = axios({
+      method: "post",
+      url: "https://rest.nexmo.com/sms/json",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      (err, result) => {
-        if (err) {
-          console.error(err);
-          id = null;
-        }
-        id = result.request_id;
-      }
-    );
-
+      data: {
+        from: "Soloo",
+        text: "Soloo OTP",
+        to: `${phoneNumber}`,
+        api_key: process.env.VONAGE_API_KEY!,
+        api_secret: process.env.VONAGE_API_SECRET!,
+      },
+    });
     console.log(res);
-
-    return id;
+    return "1";
   }
 
   async verifyCode(requestID: string, code: string): Promise<boolean> {

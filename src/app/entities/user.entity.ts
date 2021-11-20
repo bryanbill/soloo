@@ -35,9 +35,11 @@ export class User extends BaseEntity {
   accountType: string;
 
   @Column({
-  //  array: true,
+    type: "varchar",
+    array: true,
+    default: {},
   })
-  role: string;
+  role: string[];
 
   @Column({
     default: false,

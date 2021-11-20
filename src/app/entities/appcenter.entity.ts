@@ -31,7 +31,9 @@ export class Appcenter extends BaseEntity {
   updatedAt: Date;
 
   @Column({
-  //  array: true,
+    type: "varchar",
+    array: true,
+    default: {},
   })
-  users: string;
+  users: string[];
 }

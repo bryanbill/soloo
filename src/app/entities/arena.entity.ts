@@ -34,12 +34,12 @@ export class Arena extends BaseEntity {
 
   @Column()
   members: number;
-
   @Column({
- //   array: true,
-   
+    type: "varchar",
+    array: true,
+    default: {},
   })
-  reports: string;
+  reports: string[];
 
   ration() {
     return (this.reports.length / this.members) * 100;

@@ -33,10 +33,12 @@
     "@notifire/sendgrid": "^0.2.5",
     "@types/uuid": "^8.3.1",
     "@vonage/server-sdk": "^2.10.10",
+    "axios": "^0.24.0",
     "better-sqlite3": "~7.1.2",
     "exception": "^1.0.9",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "node-fetch": "^3.1.0",
     "source-map-support": "~0.5.19",
     "typeorm": "0.2.26",
     "uuid": "^8.3.2"

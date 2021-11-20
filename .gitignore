@@ -13,3 +13,5 @@ build/
 .idea/
 migrations/
 uploads/
+certs/
+node1/
