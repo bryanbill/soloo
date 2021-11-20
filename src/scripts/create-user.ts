@@ -30,6 +30,10 @@ export async function main(args: {
     user.phone = args.phone;
     user.name = args.name;
     user.username = args.username;
+    user.role = ["admin"];
+    user.isDeleted = false;
+    user.createdAt = new Date();
+    user.updatedAt = new Date();
 
     console.log(await user.save());
   } catch (error) {

@@ -63,7 +63,7 @@ export class AuthController {
     user.phone = phone;
     user.email = email;
     user.username = username;
-    user.role = "normal";
+    user.role = ["normal"];
     user.isDeleted = false;
 
     user.createdAt = new Date(Date.now());

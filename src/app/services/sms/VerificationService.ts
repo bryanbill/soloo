@@ -3,7 +3,6 @@ import axios from "axios";
 export class VerificationService {
   private vonage: Vonage;
   constructor() {
-    console.log(process.env.VONAGE_API_KEY!);
     this.vonage = new Vonage({
       apiKey: process.env.VONAGE_API_KEY!,
       apiSecret: process.env.VONAGE_API_SECRET!,
@@ -11,7 +10,7 @@ export class VerificationService {
   }
 
   async sendVerificationCode(phoneNumber: string): Promise<string> {
-    const res = axios({
+    const res = await axios({
       method: "post",
       url: "https://rest.nexmo.com/sms/json",
       headers: {
@@ -26,7 +25,7 @@ export class VerificationService {
         api_secret: process.env.VONAGE_API_SECRET!,
       },
     });
-    console.log(res);
+    console.table(res.data.messages);
     return "1";
   }
 

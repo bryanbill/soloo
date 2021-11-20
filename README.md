@@ -1,139 +1,61 @@
+<p align="center">
+  <a href="https://notifire.co">
+    <img width="200" src="">
+  </a>
+</p>
+<h1 align="center">Backend Repository For Soloo Services</h1>
 
+<div align="center">
+TODO: Write the about here
+</div>
 
-![Logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2NXYKwYo5tFSlfL_8q_qKd_uORdqLYwpnjQ&usqp=CAU)
-
-    
-
-# Soloo
-
-Soloo is a Saas application built to 
-enable developers easily create their services based on carefully curated solutions
- 
-
-
-
-## Badges
-
-Add badges from somewhere like: [shields.io](https://shields.io/)
-
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
-
+  <p align="center">
+    <br />
+    <a href=""><strong>Explore the docs »</strong></a>
+    <br />
+  <br/>
+    <a href="https://github.com/bryanbill/soloo/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/bryanbill/soloo/discussions">Request Feature</a>
+    ·
+    <a href="">Read our blog</a>
+  </p>
   
+## Description
+Soloo aims at providing backend solutions while also providing a hosted simple and intuitive interface for the frontend to get you started with the services offered. 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Auth Service
+- Storage Service
+- Crashlytics Service
+- Collaboration Platform
+- Wallet Service
+- App Center
 
-  
-## Tech Stack
+## Install
 
-**Client:** Vue, Flutter
+<p>
+Soloo uses CockroachDB as its database. Make sure you have CockroachDB installed and running on your machine.
+</p>
 
-**Server:** TypeScript, Node, Express, MongoDB, Morgan
-
-**Documentation:** Swagger
-
-  
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-  
-## Installation
-
-Install Willow  with npm and git
+### Clone the Repository
 
 ```bash
-  git clone <repo>
-  cd <repo> && npm i
-  node run start
+git clone https://github.com/bryanbill/soloo.git
 ```
-    
-## Run Locally
 
-Clone the project
+### Install the dependencies
 
 ```bash
-  git clone https://link-to-project
+yarn install
 ```
 
-Go to the project directory
+### Run the migrations
 
 ```bash
-  cd my-project
+yarn makemigrations && yarn migrations
 ```
 
-Install dependencies
+## Enjoy!
 
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
-```
-
-  
-## Demo
-
-Insert gif or link to demo
-
-  
-## Deployment
-
-To deploy this project run
-
-```bash
-  npm run deploy
-```
-
-  
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`PORT`
-
-`MONGO_CONNECTION_STRING`
-
-  
-## Usage/Examples
-
-```postman
-http://localhost:port/api/tasks
-```
-
-  
-## Used By
-
-This project is used by the following companies:
-
-- Company 1
-- Company 2
-
-  
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
-  
-## Authors
-
-- [@Bryan Omondi](https://www.github.com/bryanbill)
-
-  
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-  
+Head over to [Api Documentation](https://localhost:4040/swagger) to get started
