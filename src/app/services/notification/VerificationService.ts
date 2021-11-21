@@ -10,26 +10,10 @@ export class VerificationService {
   }
 
   async sendVerificationCode(phoneNumber: string): Promise<string> {
-    const res = await axios({
-      method: "post",
-      url: "https://rest.nexmo.com/sms/json",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      data: {
-        from: "Soloo",
-        text: "Soloo OTP",
-        to: `${phoneNumber}`,
-        api_key: process.env.VONAGE_API_KEY!,
-        api_secret: process.env.VONAGE_API_SECRET!,
-      },
-    });
-    console.table(res.data.messages);
-    return "1";
+    const code = Math.random
   }
 
-  async verifyCode(requestID: string, code: string): Promise<boolean> {
+  async verifyCode(initialCode: string, code: string): Promise<boolean> {
     let verified = false;
     const res = await this.vonage.verify.check(
       {

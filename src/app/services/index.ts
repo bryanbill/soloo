@@ -1,2 +1,2 @@
 export { FileService } from "./files/Fileservice";
-export { VerificationService } from "./sms/VerificationService";
+export { VerificationService } from "./notification/VerificationService";
