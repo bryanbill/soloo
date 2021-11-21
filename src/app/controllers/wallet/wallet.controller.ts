@@ -2,7 +2,6 @@ import {
   ApiUseTag,
   Context,
   Get,
-  HttpResponse,
   HttpResponseBadRequest,
   HttpResponseNotFound,
   HttpResponseOK,
