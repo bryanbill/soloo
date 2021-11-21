@@ -10,10 +10,17 @@ export class VerificationService {
   }
 
   async sendVerificationCode(phoneNumber: string): Promise<string> {
-    const code = Math.random
+    const res = await this.vonage.verify.request(
+      {
+        number: phoneNumber,
+        brand: "Soloo",
+      },
+      (err, result) => {}
+    );
+    return "1";
   }
 
-  async verifyCode(initialCode: string, code: string): Promise<boolean> {
+  async verifyCode(requestID: string, code: string): Promise<boolean> {
     let verified = false;
     const res = await this.vonage.verify.check(
       {
