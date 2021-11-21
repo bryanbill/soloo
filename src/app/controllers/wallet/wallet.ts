@@ -40,26 +40,31 @@ export class WalletUtil {
   }
 
   public async transfer(origin: string, address: string, coins: number) {
-    const init = Wallet.findOne({ address: origin })
-      .then(async (wallet) => {
-        wallet = wallet!;
-        if (wallet.coins < coins) return;
-        // Get the initial coin value for the receiver
-        const w = await Wallet.findOne({ address: address });
-        // Increase the receivers coin value by the coins transfered
-        await Wallet.update({ address: address }, { coins: w!.coins + coins });
-        // Decrease the sender's coin value by the coins transfered
-        await Wallet.update(
-          { address: origin },
-          { coins: wallet.coins - coins }
-        );
-        return true;
-      })
-      .catch((err) => {
-        console.log(err);
-        return false;
-      });
+    const wallet = await Wallet.findOne({ address: origin });
+    const wallet2 = await Wallet.findOne({ address: address });
 
-    return await init;
+    //logically i think know what i just wrote, doesnt look great but, whatver
+    if (wallet!.coins < coins) {
+      return false;
+    }
+    const res = Wallet.update(
+      { address: address },
+      { coins: wallet2!.coins + coins }
+    ).then(async (d) => {
+      const res = Wallet.update(
+        { address: origin },
+        { coins: wallet!.coins - coins }
+      )
+        .then((d) => {
+          return true;
+        })
+        .catch((err) => {
+          console.error(err);
+          return false;
+        });
+      return res;
+    });
+
+    return await res;
   }
 }

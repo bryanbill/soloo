@@ -61,14 +61,37 @@ export class WalletController {
   @ValidateBody({
     type: "object",
     properties: {
-      coins: { type: "number" },
+      amount: { type: "number" },
     },
   })
-  async withdraw(ctx: Context) {}
+  async withdraw(ctx: Context) {
+    const wallet = await Wallet.findOne({ username: ctx.user.username });
+    if (!wallet) {
+      return new HttpResponseNotFound();
+    }
+
+    const result = await Wallet.update(
+      { username: ctx.user.username },
+      {
+        amount: wallet.amount - ctx.request.body.amount,
+        coins:
+          wallet.coins -
+          new WalletUtil(ctx.request.body.amount).calculateCoin(),
+        updatedAt: new Date(Date.now()),
+      }
+    );
+
+    //send amount to user via card or other method
+
+    if (result.affected! > 0) {
+      return new HttpResponseOK(result);
+    }
+    return new HttpResponseBadRequest();
+  }
 
   @Post("/transfer")
   @ValidateBody({
-    type: "onject",
+    type: "object",
     properties: {
       to: { type: "string" },
       coins: { type: "number" },
@@ -79,7 +102,14 @@ export class WalletController {
     const wallet = await Wallet.findOne({ username: to });
     const myWallet = await Wallet.findOne({ username: ctx.user.username });
     if (!wallet || !myWallet) {
-      return new HttpResponseNotFound();
+      return new HttpResponseNotFound({
+        reason: `Either you or ${to} doesn't have an active wallet`,
+      });
+    }
+    if (wallet.address === myWallet.address) {
+      return new HttpResponseBadRequest({
+        reason: `You can't transfer to yourself`,
+      });
     }
     const wUtil = new WalletUtil();
     const result = await wUtil.transfer(
@@ -105,21 +135,16 @@ export class WalletController {
     if (!wallet) {
       return new HttpResponseNotFound();
     }
-
     const result = await Wallet.update(
       { username: ctx.user.username },
       {
-        amount: ctx.request.body.amount + wallet.amount,
+        amount: Number(ctx.request.body.amount) + wallet.amount,
         coins:
           +wallet.coins +
           new WalletUtil(ctx.request.body.amount).calculateCoin(),
         updatedAt: new Date(Date.now()),
       }
     );
-
-    if (result.affected! > 0) {
-      return new HttpResponseOK(result);
-    }
-    return new HttpResponseBadRequest();
+    return new HttpResponseOK(result);
   }
 }

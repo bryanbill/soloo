@@ -14,7 +14,7 @@ export class Wallet extends BaseEntity {
   username: string;
 
   @Column({ unique: true })
-  amount: string;
+  amount: number;
 
   @Column()
   coins: number;

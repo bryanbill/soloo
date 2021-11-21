@@ -27,14 +27,18 @@ export class AuthController {
 
     const result = await User.findOne({ username: username });
     if (result) {
-      const phone = result.phone;
-
-      const verificationService = new VerificationService();
-
-      let requestID = await verificationService.sendVerificationCode(phone);
-      return new HttpResponseOK({
-        id: requestID,
+      const token = signToken({
+        id: result!.id,
+        sub: result!.id.toString(),
+        username: result!.username,
       });
+
+      const response = new HttpResponseOK({
+        token: token,
+      });
+      // Do not forget the "await" keyword.
+      await setAuthCookie(response, token);
+      return response;
     } else {
       return new HttpResponseUnauthorized();
     }
