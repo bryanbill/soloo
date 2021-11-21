@@ -1,6 +1,6 @@
 <p align="center">
  <a href="https://soloo.me">
- <img src="https://github.com/bryanbill/soloo/blob/main/public/logo.png" alt="Soloo"/>
+ <img src="https://github.com/bryanbill/soloo/blob/main/public/logo2.png" alt="Soloo"/>
  </a>
 </p>
 <h1 align="center">Backend Repository For Soloo Services</h1>
