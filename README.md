@@ -1,6 +1,6 @@
 <p align="center">
  <a href="https://soloo.me">
- <img src="https://github.com/bryanbill/soloo/blob/main/public/logo2.png" alt="Soloo"/>
+ <img src="./public/Logo.png" alt="Soloo"/>
  </a>
 </p>
 <h1 align="center">Backend Repository For Soloo Services</h1>
@@ -11,14 +11,14 @@ TODO: Write the about here
 
   <p align="center">
     <br />
-    <a href=""><strong>Explore the docs »</strong></a>
+    <a href="https://developer.soloo.me/docs"><strong>Explore the docs »</strong></a>
     <br />
   <br/>
     <a href="https://github.com/bryanbill/soloo/issues">Report Bug</a>
     ·
     <a href="https://github.com/bryanbill/soloo/discussions">Request Feature</a>
     ·
-    <a href="">Read our blog</a>
+    <a href="https://blog.soloo.me/">Read our blog</a>
   </p>
   
 ## Description
