@@ -1,6 +1,6 @@
 import { Wallet, Transaction } from "../../entities";
 
-export class WalletUtil {
+export class WalletService {
   private amount: number;
   constructor(amount?: number) {
     this.amount = amount!;
@@ -8,11 +8,12 @@ export class WalletUtil {
 
   public calculateCoin() {
     //let's work on my amount
-    const fee = 0.02;
-    this.amount = this.amount - this.amount * fee;
+    const fee = (10 / 100) * this.amount;
+    this.amount = this.amount - fee;
 
+    console.log(this.amount);
     // one coin = 5 usd
-    return this.amount / 5;
+    return this.amount;
   }
 
   public async initiateTransaction(payload) {
@@ -20,23 +21,21 @@ export class WalletUtil {
     const result = new Transaction();
 
     result.coins = coins;
-    result.sourceAddress = origin;
-    result.destinationAddress = address;
+    result.origin = origin;
+    result.address = address;
     result.status = "pending";
     result.createdAt = new Date(Date.now());
     result.updatedAt = new Date(Date.now());
     result.transactionFee = 0.02 * coins;
-    result
+    const transactionStatus = result
       .save()
-      .then(async (res) => {
-        await this.transfer(origin, address, coins);
+      .then(async (_res) => {
+        return await this.transfer(origin, address, coins);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        return result;
       });
+    return transactionStatus;
   }
 
   public async transfer(origin: string, address: string, coins: number) {

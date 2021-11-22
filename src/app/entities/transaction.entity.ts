@@ -8,10 +8,10 @@ export class Transaction extends BaseEntity {
   id: string;
 
   @Column()
-  destinationAddress: string;
+  address: string;
 
   @Column()
-  sourceAddress: string;
+  origin: string;
   
   @Column()
   coins: number;

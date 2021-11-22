@@ -13,7 +13,7 @@ import { JWTRequired } from "@foal/jwt";
 import { fetchUser } from "@foal/typeorm";
 import { v4 } from "uuid";
 import { User, Wallet } from "../../entities";
-import { WalletUtil } from "./wallet";
+import { WalletService } from "../../services";
 
 @ApiUseTag("Wallet")
 @JWTRequired({ cookie: true, user: fetchUser(User) })
@@ -40,7 +40,7 @@ export class WalletController {
     },
   })
   async createWallet(ctx: Context) {
-    const wUtil = new WalletUtil(ctx.request.body.amount);
+    const wUtil = new WalletService(ctx.request.body.amount);
     const wallet = await Wallet.create({
       username: ctx.user.username,
       amount: ctx.request.body.amount,
@@ -76,7 +76,7 @@ export class WalletController {
         amount: wallet.amount - ctx.request.body.amount,
         coins:
           wallet.coins -
-          new WalletUtil(ctx.request.body.amount).calculateCoin(),
+          new WalletService(ctx.request.body.amount).calculateCoin(),
         updatedAt: new Date(Date.now()),
       }
     );
@@ -98,7 +98,7 @@ export class WalletController {
     },
   })
   async transfer(ctx: Context) {
-    const { to } = ctx.request.body;
+    const { to, coins } = ctx.request.body;
     const wallet = await Wallet.findOne({ username: to });
     const myWallet = await Wallet.findOne({ username: ctx.user.username });
     if (!wallet || !myWallet) {
@@ -111,12 +111,13 @@ export class WalletController {
         reason: `You can't transfer to yourself`,
       });
     }
-    const wUtil = new WalletUtil();
-    const result = await wUtil.transfer(
-      myWallet.address,
-      wallet.address,
-      ctx.request.body.coins
-    );
+    //Initiate the transaction
+    const wUtil = new WalletService();
+    const result = await wUtil.initiateTransaction({
+      origin: myWallet.address,
+      address: wallet.address,
+      coins: Number(coins),
+    });
 
     return new HttpResponseOK({
       isSuccess: result,
@@ -139,9 +140,12 @@ export class WalletController {
       { username: ctx.user.username },
       {
         amount: Number(ctx.request.body.amount) + wallet.amount,
-        coins:
-          +wallet.coins +
-          new WalletUtil(ctx.request.body.amount).calculateCoin(),
+
+        // TODO: fix, Convert to the nearest integer, issue with decimal,
+        coins: Math.round(
+          Number(wallet.coins) +
+            new WalletService(ctx.request.body.amount).calculateCoin()
+        ),
         updatedAt: new Date(Date.now()),
       }
     );

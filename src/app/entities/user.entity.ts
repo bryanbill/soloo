@@ -45,6 +45,27 @@ export class User extends BaseEntity {
     default: false,
   })
   isDeleted: boolean;
+
+  @Column({
+    default: false,
+  })
+  isActive: boolean;
+
+  @Column({
+    type: "varchar",
+    array: true,
+    default: {},
+  })
+  clients: string[];
+
+  get userStorageLimit(): number {
+    //Storage limit in GB
+    return this.accountType === "admin"
+      ? 10
+      : this.accountType === "premium"
+      ? 5
+      : 1;
+  }
 }
 
 // This line is required. It will be used to create the SQL session table later in the tutorial.

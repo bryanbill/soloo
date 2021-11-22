@@ -1,9 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: "wallet" })
 export class Wallet extends BaseEntity {
@@ -13,7 +8,7 @@ export class Wallet extends BaseEntity {
   @Column({ unique: true })
   username: string;
 
-  @Column({ unique: true })
+  @Column({ default: 0 })
   amount: number;
 
   @Column()
@@ -29,4 +24,11 @@ export class Wallet extends BaseEntity {
     unique: true,
   })
   address: string;
+
+  @Column({
+    type: "varchar",
+    array: true,
+    default: {},
+  })
+  transactionHash: string[];
 }
