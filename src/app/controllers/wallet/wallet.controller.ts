@@ -81,7 +81,7 @@ export class WalletController {
       }
     );
 
-    //send amount to user via card or other method
+    //send amount to user's card or some other method
 
     if (result.affected! > 0) {
       return new HttpResponseOK(result);
