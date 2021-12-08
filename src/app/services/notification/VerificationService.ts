@@ -15,7 +15,9 @@ export class VerificationService {
         number: phoneNumber,
         brand: "Soloo",
       },
-      (err, result) => {}
+      (err, result) => {
+        console.log(result.request_id);
+      }
     );
     return "1";
   }

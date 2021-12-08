@@ -1,5 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { types } from "util";
+import { Transaction } from ".";
 @Entity({ name: "wallet" })
 export class Wallet extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -11,13 +20,13 @@ export class Wallet extends BaseEntity {
   @Column({ default: 0 })
   amount: number;
 
-  @Column()
+  @Column({ type: "float" })
   coins: number;
 
-  @Column({})
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column({})
+  @UpdateDateColumn()
   updatedAt: Date;
 
   @Column({
@@ -30,5 +39,6 @@ export class Wallet extends BaseEntity {
     array: true,
     default: {},
   })
+  @OneToMany(() => Transaction, (transaction) => transaction.address)
   transactionHash: string[];
 }
