@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { types } from "util";
 import { Transaction } from ".";
+import { decimalTransformer } from "../../utils/decimalTransformer";
 @Entity({ name: "wallet" })
 export class Wallet extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -20,7 +21,12 @@ export class Wallet extends BaseEntity {
   @Column({ default: 0 })
   amount: number;
 
-  @Column({ type: "float" })
+  @Column({
+    type: "decimal",
+    precision: 20,
+    scale: 4,
+    transformer: decimalTransformer,
+  })
   coins: number;
 
   @CreateDateColumn()
@@ -39,6 +45,5 @@ export class Wallet extends BaseEntity {
     array: true,
     default: {},
   })
-  @OneToMany(() => Transaction, (transaction) => transaction.address)
   transactionHash: string[];
 }
