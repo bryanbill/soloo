@@ -29,26 +29,20 @@ export class UsersController {
     });
   }
   @Patch("/")
-  @ValidateBody({
-    properties: {
-      isActive: { type: "boolean", required: true },
-    },
-  })
   async changeStatus(ctx: Context) {
     const user = await User.findOne(ctx.user.id);
     if (user) {
-      user.isActive = ctx.request.body.isActive;
-      user.updatedAt = new Date();
-      await user.save();
+      const res = await User.update(ctx.user.id, { isActive: !user.isActive });
       return new HttpResponseOK({
         message: "User disabled successfully.",
+        data: res,
       });
     }
     return new HttpResponseNotFound({
       reason: "User with that id was not found on this server.",
     });
   }
-  
+
   @Delete("/")
   async deleteUser(ctx: Context) {
     const user = await User.findOne(ctx.user.id);

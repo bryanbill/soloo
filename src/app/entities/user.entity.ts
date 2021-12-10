@@ -1,4 +1,11 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity({ name: "users" })
 export class User extends BaseEntity {
@@ -49,6 +56,7 @@ export class User extends BaseEntity {
 
   @Column({
     default: false,
+    type: "boolean",
   })
   isActive: boolean;
 

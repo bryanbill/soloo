@@ -85,7 +85,7 @@ export class AuthController {
       });
     }
   }
-  @Get("/check-username/:username")
+  @Get("/:username")
   @ValidatePathParam("username", { type: "string" })
   async checkUsername(ctx: Context) {
     const username = ctx.request.params.username;
