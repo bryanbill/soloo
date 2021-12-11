@@ -6,3 +6,4 @@ export { Arena } from './arena.entity';
 export { ArenaMembers } from './arena-members.entity';
 export { ArenaMessages } from './arena-messages.entity';
 export { Crashlytics } from './crashlytics.entity';
+export { Mail } from './mail.entity';
