@@ -25,13 +25,25 @@ export class MailController {
     return new HttpResponseOK(mails);
   }
 
+  @Get("/received")
+  async getReceived(ctx: Context) {
+    const mails = await Mail.find({
+      where: [{ to: Equal(ctx.user.username), status: "sent" }],
+    });
+    return new HttpResponseOK(mails);
+  }
   @Get("/delivered")
   async getDelivered(ctx: Context) {
     const mails = await Mail.find({
-      where: [
-        { from: Equal(ctx.user.username) },
-        { to: Equal(ctx.user.username) },
-      ],
+      where: [{ from: Equal(ctx.user.username), status: "sent" }],
+    });
+    return new HttpResponseOK(mails);
+  }
+
+  @Get("/outbox")
+  async getOutbox(ctx: Context) {
+    const mails = await Mail.find({
+      where: [{ from: Equal(ctx.user.username), status: "not sent" }],
     });
     return new HttpResponseOK(mails);
   }
@@ -45,14 +57,31 @@ export class MailController {
     },
   })
   async sendMail(ctx: Context) {
+    const user2 = await User.findOne({
+      where: { username: ctx.request.body.to },
+    });
+    if (user2) {
+      const mail = new Mail();
+      mail.to = ctx.request.body.to;
+      mail.from = ctx.user.username;
+      mail.subject = ctx.request.body.subject;
+      mail.text = ctx.request.body.content;
+      //get attachments from storage
+      mail.attachments = [];
+      mail.html = ctx.request.body.content;
+      mail.status = "sent";
+      await mail.save();
+      return new HttpResponseOK(mail);
+    }
     const mail = new Mail();
     mail.to = ctx.request.body.to;
     mail.from = ctx.user.username;
     mail.subject = ctx.request.body.subject;
     mail.text = ctx.request.body.content;
+    //get attachments from storage
     mail.attachments = [];
     mail.html = ctx.request.body.content;
-    mail.status = "sent";
+    mail.status = "not sent: user doesn't exist";
     await mail.save();
     return new HttpResponseOK(mail);
   }

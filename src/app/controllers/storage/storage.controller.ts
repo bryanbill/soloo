@@ -1,5 +1,4 @@
 import {
-
   ApiUseTag,
   Context,
   Delete,
@@ -23,7 +22,6 @@ import { FileService } from "../../services";
 export class StorageController {
   @Get("/")
   async getFiles(ctx: Context) {
-
     const result = await Storage.find({
       username: ctx.user.username,
     });

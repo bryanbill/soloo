@@ -8,7 +8,7 @@ export class WalletService {
 
   public calculateCoin() {
     //let's work on my amount
-    const fee = (10 / 100) * this.amount;
+    const fee = (2 / 100) * this.amount;
     this.amount = this.amount - fee;
 
     console.log(this.amount);

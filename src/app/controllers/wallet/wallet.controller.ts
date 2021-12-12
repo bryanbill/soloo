@@ -139,14 +139,10 @@ export class WalletController {
     const result = await Wallet.update(
       { username: ctx.user.username },
       {
-        amount: Number(ctx.request.body.amount) + wallet.amount,
-
-        // TODO: fix, Convert to the nearest integer, issue with decimal,
-        coins: Math.round(
+        amount: wallet.amount + ctx.request.body.amount,
+        coins:
           Number(wallet.coins) +
-            new WalletService(ctx.request.body.amount).calculateCoin()
-        ),
-        updatedAt: new Date(Date.now()),
+          new WalletService(ctx.request.body.amount).calculateCoin(),
       }
     );
     return new HttpResponseOK(result);

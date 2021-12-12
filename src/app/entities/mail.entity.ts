@@ -34,7 +34,7 @@ export class Mail extends BaseEntity {
   @Column()
   html: string;
 
-  @Column("varchar", { length: 255, default: {} })
+  @Column({ type: "varchar", array: true, default: {} })
   attachments: string[];
 
   @Column()

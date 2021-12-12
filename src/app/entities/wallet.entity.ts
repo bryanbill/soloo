@@ -25,7 +25,6 @@ export class Wallet extends BaseEntity {
     type: "decimal",
     precision: 20,
     scale: 4,
-    transformer: decimalTransformer,
   })
   coins: number;
 
