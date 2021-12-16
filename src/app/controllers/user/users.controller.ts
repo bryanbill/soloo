@@ -3,9 +3,12 @@ import {
   Context,
   Delete,
   Get,
+  Hook,
   HttpResponseForbidden,
+  HttpResponseNoContent,
   HttpResponseNotFound,
   HttpResponseOK,
+  Options,
   Patch,
   UserRequired,
   ValidateBody,
@@ -16,8 +19,8 @@ import { User } from "../../entities";
 import { Admin } from "../../hooks";
 
 @ApiUseTag("Users")
-@JWTRequired({ cookie: true, user: fetchUser(User) })
 export class UsersController {
+  @JWTRequired({ cookie: true, user: fetchUser(User) })
   @Get("/")
   async profile(ctx: Context) {
     const user = await User.findOne(ctx.user.id);

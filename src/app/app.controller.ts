@@ -1,5 +1,4 @@
 import { Config, controller, IAppController } from "@foal/core";
-import process = require("process");
 import { createConnection } from "typeorm";
 
 import { ApiController, OpenapiController } from "./controllers";

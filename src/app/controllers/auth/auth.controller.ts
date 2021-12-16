@@ -62,13 +62,13 @@ export class AuthController {
   async register(ctx: Context) {
     const user = new User();
     const { name, phone, email, username } = ctx.request.body;
-    console.log(ctx.request.body);
     user.name = name;
     user.phone = phone;
     user.email = email;
     user.username = username;
     user.role = ["normal"];
-
+    user.avatar =
+      "https://images.unsplash.com/photo-1639502003763-e9dae1e76ec5";
     user.createdAt = new Date(Date.now());
     user.updatedAt = new Date(Date.now());
     const result = await user.save().catch((err) => {

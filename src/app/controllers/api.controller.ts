@@ -6,8 +6,11 @@ import {
   Context,
   controller,
   Get,
+  Hook,
   HttpResponseForbidden,
+  HttpResponseNoContent,
   HttpResponseOK,
+  Options,
 } from "@foal/core";
 import { JWTOptional } from "@foal/jwt";
 import { fetchUser } from "@foal/typeorm";
@@ -33,7 +36,7 @@ export class ApiController {
     controller("/auth", AuthController),
     controller("/appcenter", AppcenterController),
     controller("/storage", StorageController),
-    controller("/mail", MailController),
+    //controller("/mail", MailController),
   ];
 
   @ApiUseTag("Server")
