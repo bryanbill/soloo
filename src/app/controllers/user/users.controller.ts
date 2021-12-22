@@ -19,8 +19,8 @@ import { User } from "../../entities";
 import { Admin } from "../../hooks";
 
 @ApiUseTag("Users")
+@JWTRequired({ cookie: true, user: fetchUser(User) })
 export class UsersController {
-  @JWTRequired({ cookie: true, user: fetchUser(User) })
   @Get("/")
   async profile(ctx: Context) {
     const user = await User.findOne(ctx.user.id);
@@ -31,6 +31,11 @@ export class UsersController {
       reason: "User with that id was not found on this server.",
     });
   }
+  @Get("/all")
+  async all(ctx: Context) {
+    return new HttpResponseOK({ users: await User.find() });
+  }
+
   @Patch("/")
   async changeStatus(ctx: Context) {
     const user = await User.findOne(ctx.user.id);

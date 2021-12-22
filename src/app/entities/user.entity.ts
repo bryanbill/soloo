@@ -3,12 +3,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from "typeorm";
+import { Issue, Project, Comment } from ".";
+import is from "../helpers/utils/validation";
 
 @Entity({ name: "users" })
 export class User extends BaseEntity {
+  static validations = {
+    name: [is.required(), is.maxLength(100)],
+    email: [is.required(), is.email(), is.maxLength(200)],
+  };
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,7 +34,7 @@ export class User extends BaseEntity {
   @Column({
     default: "images/default.png",
   })
-  avatar: string;
+  avatarUrl: string;
 
   @Column({
     unique: true,
@@ -66,7 +76,17 @@ export class User extends BaseEntity {
     default: {},
   })
   clients: string[];
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
+  @ManyToMany(() => Issue, (issue) => issue.users)
+  issues: Issue[];
+
+  @ManyToOne(() => Project, (project) => project.users)
+  project: Project;
+
+  @RelationId((user: User) => user.project)
+  projectId: number;
 }
 
 // This line is required. It will be used to create the SQL session table later in the tutorial.

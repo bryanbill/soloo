@@ -17,7 +17,10 @@ import { fetchUser } from "@foal/typeorm";
 import { User } from "../entities";
 import { AppcenterController } from "./appcenter";
 import { AuthController } from "./auth";
+import { CommentsController } from "./comments";
+import { IssuesController } from "./issues";
 import { MailController } from "./mail";
+import { ProjectsController } from "./projects";
 import { StorageController } from "./storage";
 import { UsersController } from "./user";
 import { WalletController } from "./wallet";
@@ -29,6 +32,13 @@ import { WalletController } from "./wallet";
 @ApiServer({
   url: `/${Config.get("version", "string", "/v1")}`,
 })
+@Hook((ctx) => (response) => {
+  response.setHeader(
+    "Access-Control-Allow-Origin",
+    ctx.request.get("Origin") || "*"
+  );
+  response.setHeader("Access-Control-Allow-Credentials", "true");
+})
 export class ApiController {
   subControllers = [
     controller("/users", UsersController),
@@ -36,7 +46,11 @@ export class ApiController {
     controller("/auth", AuthController),
     controller("/appcenter", AppcenterController),
     controller("/storage", StorageController),
-    //controller("/mail", MailController),
+    controller("/mail", MailController),
+    controller("/project", ProjectsController),
+    controller("/issues", IssuesController),
+    controller("/comments", CommentsController),
+ 
   ];
 
   @ApiUseTag("Server")

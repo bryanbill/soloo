@@ -14,7 +14,7 @@ async function main() {
   const expressApp = express();
   expressApp.use(
     cors({
-      origin: "http://localhost:*",
+      origin: "http://localhost:8081",
       credentials: true,
     })
   );

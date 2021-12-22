@@ -67,7 +67,7 @@ export class AuthController {
     user.email = email;
     user.username = username;
     user.role = ["normal"];
-    user.avatar =
+    user.avatarUrl =
       "https://images.unsplash.com/photo-1639502003763-e9dae1e76ec5";
     user.createdAt = new Date(Date.now());
     user.updatedAt = new Date(Date.now());
