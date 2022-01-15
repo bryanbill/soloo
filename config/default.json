@@ -28,7 +28,7 @@
     }
   },
   "database": {
-    "type": "cockroachdb",
+    "type": "postgres",
     "host": "env(DB_HOST)",
     "port": "env(DB_PORT)",
     "username": "env(DB_USERNAME)",

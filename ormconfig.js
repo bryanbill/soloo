@@ -17,11 +17,11 @@ module.exports = {
   },
   //For secure connection:
   ssl: {
-    ca: fs.readFileSync("certs/ca.crt").toString(),
-    key: fs.readFileSync("certs/ca.key").toString(),
+    ca: fs.readFileSync("/home/admin/databases/certs/ca.crt").toString(),
+    key: fs.readFileSync("/home/admin/databases/my-safe-directory/ca.key").toString(),
   },
   dropSchema: Config.get("database.dropSchema", "boolean", false),
-  synchronize: Config.get("database.synchronize", "boolean", false),
+  synchronize: Config.get("database.synchronize", "boolean", true),
 
   entities: ["build/app/**/*.entity.js"],
   migrations: ["build/migrations/*.js"],
