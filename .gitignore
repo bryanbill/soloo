@@ -15,3 +15,5 @@ migrations/
 uploads/
 certs/
 node1/
+config/
+

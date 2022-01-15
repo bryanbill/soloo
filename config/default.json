@@ -19,11 +19,11 @@
       "secretEncoding": "base64",
       "cookie": {
         "name": "soloo",
-        "domain": "localhost",
+        "domain": "soloo.me",
         "httpOnly": true,
         "path": "/",
         "sameSite": "strict",
-        "secure": false
+        "secure": true
       }
     }
   },
