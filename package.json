@@ -6,7 +6,7 @@
   "repository": {},
   "scripts": {
     "build": "foal rmdir build && tsc -p tsconfig.app.json",
-    "start": "pm2 start ./build/index.js",
+    "start": "pm2 start ecosystem.config.js",
     "develop": "npm run build && concurrently \"tsc -p tsconfig.app.json -w\" \"supervisor -w ./build,./config -e js,json,yml --no-restart-on error ./build/index.js\"",
     "build:test": "foal rmdir build && tsc -p tsconfig.test.json",
     "start:test": "mocha --file ./build/test.js \"./build/**/*.spec.js\"",
