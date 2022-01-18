@@ -1,0 +1,58 @@
+name: Engine - Build and Publish to Docker
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Read current version
+        id: read_property
+        uses: christian-draeger/read-properties@1.0.0
+        with:
+          path: VERSION
+          property: "version"
+      - name: Current version
+        run: echo ${{ steps.read_property.outputs.value }}
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.0
+        with:
+          current-version: ${{ steps.read_property.outputs.value }}
+          version-fragment: "bug"
+      - name: New version
+        run: echo ${{ steps.bump_version.outputs.next-version }}
+      - name: Remove existing version file
+        uses: JesseTG/rm@v1.0.0
+        with:
+          path: VERSION
+      - name: Write new version
+        uses: christian-draeger/write-properties@1.0.0
+        with:
+          path: VERSION
+          property: "version"
+          value: ${{ steps.bump_version.outputs.next-version }}
+      - name: Ssh to the server and pull latest version
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: keeka/engine
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          dockerfile: Dockerfile
+          context: ./
+          tags: ${{ steps.bump_version.outputs.next-version }}
+      - name: Git commit changes version number
+        uses: matheusalbino/git-commit@v1.1.0
+        with:
+          user-name: bryanbill
+          user-email: emobrya@gmail.com
+          github-token: ${{ secrets.TOKEN }}
+          message: "Updated version to ${{ steps.bump_version.outputs.next-version }}"
+          branch: staging
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2.0.0
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK }}
+          SLACK_MESSAGE: "A new version of Engine (${{ steps.bump_version.outputs.next-version }}) was built and published to Docker Hub"
