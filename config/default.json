@@ -9,17 +9,17 @@
       }
     },
     "disk": {
-      "driver": "local",
+      "driver": "env(DISK_DRIVER)",
       "local": {
-        "directory": "uploads"
+        "directory": "env(FOAL_DISK_DIRECTORY)"
       }
     },
     "jwt": {
-      "secret": "+62abiS1hpdvHdNjgzS6SG+i8alqyjtZUQj97FxS6CI=",
+      "secret": "env(JWT_SECRET)",
       "secretEncoding": "base64",
       "cookie": {
-        "name": "soloo",
-        "domain": "soloo.me",
+        "name": "env(JWT_COOKIE_NAME)",
+        "domain": "env(JWT_COOKIE_DOMAIN)",
         "httpOnly": true,
         "path": "/",
         "sameSite": "strict",
@@ -28,7 +28,7 @@
     }
   },
   "database": {
-    "type": "postgres",
+    "type": "env(DATABASE_TYPE)",
     "host": "env(DB_HOST)",
     "port": "env(DB_PORT)",
     "username": "env(DB_USERNAME)",
