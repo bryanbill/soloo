@@ -1,3 +1,40 @@
 {
+    "port": "env(PORT)",
+    "settings": {
+      "loggerFormat": "tiny",
+      "session": {
+        "store": "@foal/typeorm",
+        "csrf": {
+          "enabled": true
+        }
+      },
+      "disk": {
+        "driver": "env(DISK_DRIVER)",
+        "local": {
+          "directory": "env(FOAL_DISK_DIRECTORY)"
+        }
+      },
+      "jwt": {
+        "secret": "env(JWT_SECRET)",
+        "secretEncoding": "base64",
+        "cookie": {
+          "name": "env(JWT_COOKIE_NAME)",
+          "domain": "env(JWT_COOKIE_DOMAIN)",
+          "httpOnly": true,
+          "path": "/",
+          "sameSite": "strict",
+          "secure": true
+        }
+      }
+    },
+    "database": {
+      "type": "env(DATABASE_TYPE)",
+      "host": "env(DB_HOST)",
+      "port": "env(DB_PORT)",
+      "username": "env(DB_USERNAME)",
+      "password": "env(DB_PASSWORD)",
+      "database": "env(DB_NAME)"
+    },
+    "version": "env(VERSION)"
+  }
   
-}

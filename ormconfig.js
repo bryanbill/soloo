@@ -15,6 +15,7 @@ module.exports = {
       rejectUnauthorized: false,
     },
   },
+  
   //For secure connection:
   ssl: {
     ca: fs.readFileSync("/home/admin/databases/certs/ca.crt").toString(),
