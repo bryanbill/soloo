@@ -56,6 +56,15 @@ yarn install
 yarn makemigrations && yarn migrations
 ```
 
+### Deploying
+```mermaid
+flowchart TD
+A[Deploy to Production] --> B{Is it Friday?};
+B -- Yes --> C[Do not Deploy!];
+B -- No --> D[Run deploy.sh!];
+C ----> E[Enjoy your Weekend!];
+D ----> E[Enjoy your Weekend!];
+```
 ## Enjoy!
 
 Head over to [Api Documentation](https://localhost:4040/swagger) to get started
