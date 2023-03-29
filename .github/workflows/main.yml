@@ -35,7 +35,7 @@ jobs:
           property: "version"
           value: ${{ steps.bump_version.outputs.next-version }}
       - name: Ssh to the server and pull latest version
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: keeka/engine
           username: ${{ secrets.USERNAME }}
